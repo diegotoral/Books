@@ -22,7 +22,7 @@ link_directories(${LIB_PATHS})
 add_definitions(${CFLAGS} "-DGETTEXT_PACKAGE=\"mybooks\"")
 
 vala_precompile(VALA_C
-    main.vala
+    MyBooks.vala
     Config.vala
 PACKAGES
     gtk+-3.0
