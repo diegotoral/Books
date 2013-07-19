@@ -20,6 +20,11 @@
         private Gtk.Box main_container;
         private Gtk.ApplicationWindow window;
         private Granite.Widgets.ThinPaned paned;
+        private Granite.Widgets.Welcome welcome;
+
+        // Toolbar
+        private Gtk.Menu menu;
+        private Granite.Widgets.AppMenu appmenu;
 
         construct {
             program_name = "MyBooks";
@@ -47,6 +52,11 @@
             about_license_type = Gtk.License.GPL_3_0;
         }
 
+        public MyBooks ()
+        {
+            DEBUG = true;
+        }
+
         public override void activate ()
         {
             if (get_windows () == null)
@@ -62,7 +72,12 @@
                 main_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
                 // Toolbar
+                menu = new Gtk.Menu ();
                 toolbar = new Gtk.Toolbar ();
+                appmenu = create_appmenu (menu);
+
+                add_spacer ();
+                toolbar.add (appmenu);
 
                 // Paned
                 paned = new Granite.Widgets.ThinPaned ();
@@ -73,8 +88,33 @@
 
                 window.add (main_container);
 
+                show_welcome ();
+
                 window.show_all ();
             }
+        }
+
+        private void show_welcome ()
+        {
+            welcome = new Granite.Widgets.Welcome (
+                _("No files found"),
+                _("Select a directory and enjoy")
+            );
+
+            welcome.append (
+                Gtk.Stock.FIND,
+                _("Load a directory"),
+                _("Load data from a directory and add to your collection")
+            );
+
+            paned.add2 (welcome);
+        }
+
+        private void add_spacer ()
+        {
+            var spacer = new Gtk.ToolItem ();
+            spacer.set_expand (true);
+            toolbar.add (spacer);
         }
 
         public static int main (string[] args)
