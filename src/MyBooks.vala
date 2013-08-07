@@ -117,7 +117,7 @@
         private void init_library ()
         {
             var categories = Library.default_categories ();
-            var books = new Gtk.TreeStore (3, typeof (string), typeof (string), typeof (string));
+            var books = new Gtk.ListStore (3, typeof (string), typeof (string), typeof (string));
 
             // Load the library
             library = new Library (books, categories);
@@ -131,7 +131,7 @@
             );
 
             welcome.append (
-                Gtk.Stock.FIND,
+                Gtk.Stock.OPEN,
                 _("Load a directory"),
                 _("Load books from a directory and add to your collection")
             );
@@ -148,6 +148,15 @@
                 if (dialog.run () == Gtk.ResponseType.ACCEPT)
                 {
                     library.load_from_directory (dialog.get_file ());
+
+                    var scrolled = new Gtk.ScrolledWindow (null, null);
+                    var books_list = new Widgets.BooksListView (library.books);
+
+                    paned.remove (welcome);
+                    scrolled.add (books_list);
+                    paned.add2 (scrolled);
+
+                    scrolled.show_all ();
                 }
 
                 dialog.destroy ();

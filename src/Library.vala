@@ -15,10 +15,10 @@
 
  namespace MyBooks {
     public class Library : Object {
-        public Gtk.TreeStore books;
+        public Gtk.ListStore books;
         public Gtk.TreeStore categories;
 
-        public Library (Gtk.TreeStore books, Gtk.TreeStore categories)
+        public Library (Gtk.ListStore books, Gtk.TreeStore categories)
         {
             this.books = books;
             this.categories = categories;
@@ -56,8 +56,8 @@
         {
             Gtk.TreeIter iter;
 
-            books.append (out iter, null);
-            books.set (iter, -1, title, path, size, -1);
+            books.append (out iter);
+            books.set (iter, 0, title, 1, path, 2, size, -1);
         }
 
         public static Gtk.TreeStore default_categories ()
