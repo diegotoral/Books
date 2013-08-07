@@ -24,6 +24,26 @@
             this.categories = categories;
         }
 
+        public void load_from_directory (File directory)
+        {
+            assert (directory != null);
+
+            debug ("Loading books from " + directory.get_path ());
+
+            var files = directory.enumerate_children (
+                "standard::name,standard::type,standard::size",
+                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null
+            );
+
+            var file = files.next_file ();
+
+            while (file != null)
+            {
+                insert_book (file.get_name (), "", "");
+                file = files.next_file ();
+            }
+        }
+
         public void insert_category (string name)
         {
             Gtk.TreeIter iter;
@@ -37,7 +57,7 @@
             Gtk.TreeIter iter;
 
             books.append (out iter, null);
-            books.set (iter, 0, title, path, size, -1);
+            books.set (iter, -1, title, path, size, -1);
         }
 
         public static Gtk.TreeStore default_categories ()

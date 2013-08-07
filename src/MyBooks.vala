@@ -117,7 +117,7 @@
         private void init_library ()
         {
             var categories = Library.default_categories ();
-            var books = new Gtk.TreeStore (1, typeof (string));
+            var books = new Gtk.TreeStore (3, typeof (string), typeof (string), typeof (string));
 
             // Load the library
             library = new Library (books, categories);
@@ -147,7 +147,7 @@
 
                 if (dialog.run () == Gtk.ResponseType.ACCEPT)
                 {
-                    debug ("Gtk.ResponseType.ACCEPT");
+                    library.load_from_directory (dialog.get_file ());
                 }
 
                 dialog.destroy ();
