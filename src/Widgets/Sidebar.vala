@@ -23,18 +23,18 @@
 
             set_model (this.categories);
             set_headers_visible (false);
-            set_show_expanders (false);
+            set_fixed_height_mode (true);
+            // set_show_expanders (false);
+            set_grid_lines(Gtk.TreeViewGridLines.NONE);
             get_style_context ().add_class (Gtk.STYLE_CLASS_SIDEBAR);
 
             configure_columns ();
+            expand_all ();
         }
 
-        private configure_columns ()
+        private void configure_columns ()
         {
-            Gtk.TreeViewColumn col = new Gtk.TreeViewColumn ();
-
-            col.title = "label";
-            insert_column (col, 0);
+            insert_column_with_attributes (-1, "visible", new Gtk.CellRendererText (), "text", 0, null);
         }
     }
  }

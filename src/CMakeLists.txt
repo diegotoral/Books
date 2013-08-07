@@ -23,6 +23,9 @@ add_definitions(${CFLAGS} "-DGETTEXT_PACKAGE=\"mybooks\"")
 
 vala_precompile(VALA_C
     MyBooks.vala
+    Library.vala
+    Widgets/Sidebar.vala
+    Widgets/StatusBar.vala
     Config.vala
 PACKAGES
     gtk+-3.0

@@ -15,9 +15,12 @@
 
  namespace MyBooks {
     public class MyBooks : Granite.Application {
+        private Library library;
 
         private Gtk.Toolbar toolbar;
         private Gtk.Box main_container;
+        private Widgets.SideBar sidebar;
+        private Widgets.StatusBar statusbar;
         private Gtk.ApplicationWindow window;
         private Granite.Widgets.ThinPaned paned;
         private Granite.Widgets.Welcome welcome;
@@ -61,32 +64,10 @@
         {
             if (get_windows () == null)
             {
-                // Window
-                window = new Gtk.ApplicationWindow (this);
-                window.title = "MyBooks";
-                window.width_request = 1100;
-                window.height_request = 600;
-                window.window_position = Gtk.WindowPosition.CENTER;
-
-                // Main container
-                main_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-
-                // Toolbar
-                menu = new Gtk.Menu ();
-                toolbar = new Gtk.Toolbar ();
-                appmenu = create_appmenu (menu);
-
-                add_spacer ();
-                toolbar.add (appmenu);
-
-                // Paned
-                paned = new Granite.Widgets.ThinPaned ();
-                paned.set_position (300);
-
-                main_container.pack_start (toolbar, false);
-                main_container.pack_end (paned, true);
-
-                window.add (main_container);
+                // Initialize the interface elements
+                init_library ();
+                init_toolbar ();
+                init_window ();
 
                 show_welcome ();
 
@@ -94,18 +75,83 @@
             }
         }
 
+        private void init_window ()
+        {
+            // Window
+            window = new Gtk.ApplicationWindow (this);
+            window.title = "MyBooks";
+            window.width_request = 1100;
+            window.height_request = 600;
+            window.window_position = Gtk.WindowPosition.CENTER;
+
+            // Main container
+            main_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+
+            // Paned
+            paned = new Granite.Widgets.ThinPaned ();
+            paned.set_position (200);
+
+            // Sidebar
+            statusbar = new Widgets.StatusBar ();
+            sidebar = new Widgets.SideBar (library.categories);
+
+            paned.add1 (sidebar);
+            main_container.pack_start (toolbar, false);
+            main_container.pack_start (paned, true);
+            main_container.pack_end (statusbar, false);
+
+            window.add (main_container);
+        }
+
+        private void init_toolbar ()
+        {
+            // Toolbar
+            menu = new Gtk.Menu ();
+            toolbar = new Gtk.Toolbar ();
+            appmenu = create_appmenu (menu);
+
+            add_spacer ();
+            toolbar.add (appmenu);
+        }
+
+        private void init_library ()
+        {
+            var categories = Library.default_categories ();
+            var books = new Gtk.TreeStore (1, typeof (string));
+
+            // Load the library
+            library = new Library (books, categories);
+        }
+
         private void show_welcome ()
         {
             welcome = new Granite.Widgets.Welcome (
-                _("No files found"),
-                _("Select a directory and enjoy")
+                _("Your library is empty"),
+                _("Select a directory and good reading")
             );
 
             welcome.append (
                 Gtk.Stock.FIND,
                 _("Load a directory"),
-                _("Load data from a directory and add to your collection")
+                _("Load books from a directory and add to your collection")
             );
+
+            welcome.activated.connect ((index) => {
+                var dialog = new Gtk.FileChooserDialog (
+                    _("Select a directory to load files from"),
+                    this.window, Gtk.FileChooserAction.SELECT_FOLDER,
+                    Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
+                    Gtk.Stock.OPEN, Gtk.ResponseType.ACCEPT,
+                    null
+                );
+
+                if (dialog.run () == Gtk.ResponseType.ACCEPT)
+                {
+                    debug ("Gtk.ResponseType.ACCEPT");
+                }
+
+                dialog.destroy ();
+            });
 
             paned.add2 (welcome);
         }
