@@ -15,11 +15,13 @@
 
  namespace MyBooks.Widgets {
     public class StatusBar : Granite.Widgets.StatusBar {
-        public Gtk.Widget total_books { get; private set; default = new Gtk.Label ("1001 books"); }
+        public Gtk.Label total_books_label { get; private set; default = new Gtk.Label ("Library empty"); }
 
-        public StatusBar ()
+        public StatusBar (int total_books = 0)
         {
-            insert_widget (total_books, true);
+            total_books_label.set_text ((string) total_books);
+
+            insert_widget (total_books_label, true);
         }
     }
  }

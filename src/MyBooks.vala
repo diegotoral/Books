@@ -17,17 +17,13 @@
     public class MyBooks : Granite.Application {
         private Library library;
 
-        private Gtk.Toolbar toolbar;
         private Gtk.Box main_container;
+        private Widgets.Toolbar toolbar;
         private Widgets.SideBar sidebar;
         private Widgets.StatusBar statusbar;
         private Gtk.ApplicationWindow window;
         private Granite.Widgets.ThinPaned paned;
         private Granite.Widgets.Welcome welcome;
-
-        // Toolbar
-        private Gtk.Menu menu;
-        private Granite.Widgets.AppMenu appmenu;
 
         construct {
             program_name = "MyBooks";
@@ -105,13 +101,8 @@
 
         private void init_toolbar ()
         {
-            // Toolbar
-            menu = new Gtk.Menu ();
-            toolbar = new Gtk.Toolbar ();
-            appmenu = create_appmenu (menu);
-
-            add_spacer ();
-            toolbar.add (appmenu);
+            var menu = new Gtk.Menu ();
+            toolbar = new Widgets.Toolbar (menu, create_appmenu (menu));
         }
 
         private void init_library ()
@@ -148,6 +139,7 @@
                 if (dialog.run () == Gtk.ResponseType.ACCEPT)
                 {
                     library.load_from_directory (dialog.get_file ());
+                    toolbar.set_disabled (false);
 
                     var scrolled = new Gtk.ScrolledWindow (null, null);
                     var books_list = new Widgets.BooksListView (library.books);
@@ -163,13 +155,6 @@
             });
 
             paned.add2 (welcome);
-        }
-
-        private void add_spacer ()
-        {
-            var spacer = new Gtk.ToolItem ();
-            spacer.set_expand (true);
-            toolbar.add (spacer);
         }
 
         public static int main (string[] args)

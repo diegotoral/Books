@@ -26,6 +26,7 @@ vala_precompile(VALA_C
     Library.vala
     Widgets/Sidebar.vala
     Widgets/StatusBar.vala
+    Widgets/Toolbar.vala
     Widgets/BooksListView.vala
     Config.vala
 PACKAGES

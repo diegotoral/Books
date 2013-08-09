@@ -15,13 +15,16 @@
 
  namespace MyBooks {
     public class Library : Object {
+        public int total_books = 0;
+
         public Gtk.ListStore books;
         public Gtk.TreeStore categories;
 
-        public Library (Gtk.ListStore books, Gtk.TreeStore categories)
+        public Library (Gtk.ListStore books, Gtk.TreeStore categories, int total_books = 0)
         {
             this.books = books;
             this.categories = categories;
+            this.total_books = total_books;
         }
 
         public void load_from_directory (File directory)
@@ -55,6 +58,8 @@
         public void insert_book (string title, string path, string size)
         {
             Gtk.TreeIter iter;
+
+            total_books++;
 
             books.append (out iter);
             books.set (iter, 0, title, 1, path, 2, size, -1);

@@ -15,13 +15,10 @@
 
  namespace MyBooks.Widgets {
     public class BooksListView : Gtk.TreeView {
-        public Gtk.ListStore books;
 
         public BooksListView (Gtk.ListStore books)
         {
-            this.books = books;
-
-            set_model (this.books);
+            set_model (books);
             set_headers_visible (true);
             // set_fixed_height_mode (true);
             // set_grid_lines(Gtk.TreeViewGridLines.NONE);
