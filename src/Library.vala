@@ -33,17 +33,26 @@
 
             debug ("Loading books from " + directory.get_path ());
 
-            var files = directory.enumerate_children (
-                "standard::name,standard::type,standard::size",
-                FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null
-            );
-
-            var file = files.next_file ();
-
-            while (file != null)
+            try
             {
-                insert_book (file.get_name (), "", "");
-                file = files.next_file ();
+                var files = directory.enumerate_children (
+                    "standard::name,standard::type,standard::size",
+                    FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null
+                );
+
+                var file = files.next_file ();
+
+                while (file != null)
+                {
+                    var size = file.get_attribute_as_string ("standard::size");
+
+                    insert_book (file.get_name (), "type", size);
+                    file = files.next_file ();
+                }
+            }
+            catch(GLib.Error er)
+            {
+                error(_("Error while loading files from directory %s.\nMessage: %s"), directory.get_path (), er.message);
             }
         }
 
