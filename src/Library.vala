@@ -35,19 +35,29 @@
 
             try
             {
-                var files = directory.enumerate_children (
-                    "standard::name,standard::type,standard::size",
+                var infos = directory.enumerate_children (
+                    "standard::name,standard::type,standard::content-type,standard::size",
                     FileQueryInfoFlags.NOFOLLOW_SYMLINKS, null
                 );
 
-                var file = files.next_file ();
+                var file = infos.next_file ();
 
                 while (file != null)
                 {
-                    var size = file.get_attribute_as_string ("standard::size");
+                    var type = file.get_file_type ();
 
-                    insert_book (file.get_name (), "type", size);
-                    file = files.next_file ();
+                    if (type == FileType.DIRECTORY)
+                        this.load_from_directory (directory.get_child (file.get_name ()));
+                    else
+                    {
+                        var size = file.get_size ();
+                        var content_type = file.get_content_type ();
+
+                        if (content_type == "application/pdf")
+                            insert_book (file.get_name (), "path", size.to_string ());
+                    }
+
+                    file = infos.next_file ();
                 }
             }
             catch(GLib.Error er)
