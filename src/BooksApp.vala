@@ -53,7 +53,7 @@
 
         public BooksApp ()
         {
-            DEBUG = true;
+            DEBUG = debug;
         }
 
         public override void activate ()
@@ -157,9 +157,38 @@
             paned.add2 (welcome);
         }
 
+        // Context options
+        static bool version = false;
+        static bool refresh_database = false;
+        static bool debug = false;
+
+        static const OptionEntry[] entries = {
+            { "version", 0, 0, OptionArg.NONE, ref version, N_("Display version number"), null },
+            { "debug", 0, 0, OptionArg.NONE, ref debug, N_("Show debug messages"), null },
+            { "refresh-database", 'r', 0, OptionArg.NONE, ref refresh_database, N_("Recreates database files"), null },
+            { null }
+        };
+
         public static int main (string[] args)
         {
-            Gtk.init (ref args);
+            var context = new OptionContext ("");
+            context.add_main_entries (entries, Constants.GETTEXT_PACKAGE);
+
+            try {
+                context.parse (ref args);
+            }
+            catch(Error e) {
+                warning (e.message);
+            }
+
+            // Handle context options
+            if (version)
+            {
+                print ("%s\n", Constants.VERSION);
+
+                return 0;
+            }
+
             var app = new BooksApp ();
 
             return app.run (args);
