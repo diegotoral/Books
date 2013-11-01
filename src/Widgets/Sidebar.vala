@@ -13,7 +13,7 @@
  * Authored by: Diego Toral <diegotoral@gmail.com>
  */
 
- namespace MyBooks.Widgets {
+ namespace Books.Widgets {
     public class SideBar : Gtk.TreeView {
         public Gtk.TreeStore categories;
 

@@ -13,8 +13,8 @@
  * Authored by: Diego Toral <diegotoral@gmail.com>
  */
 
- namespace MyBooks {
-    public class MyBooks : Granite.Application {
+ namespace Books {
+    public class BooksApp : Granite.Application {
         private Library library;
 
         private Gtk.Box main_container;
@@ -26,8 +26,8 @@
         private Granite.Widgets.Welcome welcome;
 
         construct {
-            program_name = "MyBooks";
-            exec_name = "mybooks";
+            program_name = "Books";
+            exec_name = "books";
 
             build_data_dir = Constants.DATADIR;
             build_pkg_data_dir = Constants.PKGDATADIR;
@@ -35,13 +35,13 @@
 
             app_years = "2013";
             app_icon = "applications-chat";
-            app_launcher = "mybooks.desktop";
-            application_id = "org.mybooks";
+            app_launcher = "books.desktop";
+            application_id = "org.books";
 
-            main_url = "https://github.com/diegotoral/SeasonHunter";
-            bug_url = "https://github.com/diegotoral/SeasonHunter/issues";
-            help_url = "https://github.com/diegotoral/SeasonHunter/wiki";
-            translate_url = "https://github.com/diegotoral/SeasonHunter";
+            main_url = "https://github.com/diegotoral/Books";
+            bug_url = "https://github.com/diegotoral/Books/issues";
+            help_url = "https://github.com/diegotoral/Books/wiki";
+            translate_url = "https://github.com/diegotoral/Books";
 
             about_authors = {"Diego Toral <diegotoral@gmail.com>"};
             about_documenters = {"Diego Toral <diegotoral@gmail.com>"};
@@ -51,7 +51,7 @@
             about_license_type = Gtk.License.GPL_3_0;
         }
 
-        public MyBooks ()
+        public BooksApp ()
         {
             DEBUG = true;
         }
@@ -75,7 +75,7 @@
         {
             // Window
             window = new Gtk.ApplicationWindow (this);
-            window.title = "MyBooks";
+            window.title = "Books";
             window.width_request = 1100;
             window.height_request = 600;
             window.window_position = Gtk.WindowPosition.CENTER;
@@ -160,7 +160,7 @@
         public static int main (string[] args)
         {
             Gtk.init (ref args);
-            var app = new MyBooks ();
+            var app = new BooksApp ();
 
             return app.run (args);
         }

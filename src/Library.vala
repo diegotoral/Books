@@ -13,7 +13,7 @@
  * Authored by: Diego Toral <diegotoral@gmail.com>
  */
 
- namespace MyBooks {
+ namespace Books {
     public class Library : Object {
         public int total_books = 0;
 

@@ -13,7 +13,7 @@
  * Authored by: Diego Toral <diegotoral@gmail.com>
  */
 
- namespace MyBooks.Widgets {
+ namespace Books.Widgets {
     public class Toolbar : Gtk.Toolbar {
         private Gtk.Menu menu;
 
@@ -37,6 +37,10 @@
 
         private void init_menu ()
         {
+            // Import item
+            var import = new Gtk.MenuItem.with_label (_("Import books"));
+            this.menu.prepend (import);
+
             // Preferences item
             var preferences = new Gtk.MenuItem.with_label (_("Preferences"));
             this.menu.prepend (preferences);

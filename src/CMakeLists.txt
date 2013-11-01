@@ -19,10 +19,10 @@ set(LIB_PATHS
 )
 link_directories(${LIB_PATHS})
 
-add_definitions(${CFLAGS} "-DGETTEXT_PACKAGE=\"mybooks\"")
+add_definitions(${CFLAGS} "-DGETTEXT_PACKAGE=\"books\"")
 
 vala_precompile(VALA_C
-    MyBooks.vala
+    BooksApp.vala
     Library.vala
     Widgets/Sidebar.vala
     Widgets/StatusBar.vala
@@ -35,12 +35,12 @@ PACKAGES
     granite)
 
 # Define the executable name.
-add_executable(mybooks
+add_executable(books
     ${VALA_C} )
 
 add_definitions (${DEPS_CFLAGS} -DWNCK_I_KNOW_THIS_IS_UNSTABLE)
 
 # Link the libraries with our Executable.
-target_link_libraries(mybooks ${DEPS_LIBRARIES})
+target_link_libraries(books ${DEPS_LIBRARIES})
 
-install (TARGETS mybooks RUNTIME DESTINATION bin)
+install (TARGETS books RUNTIME DESTINATION bin)

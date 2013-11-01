@@ -13,14 +13,14 @@
  * Authored by: Diego Toral <diegotoral@gmail.com>
  */
 
- namespace MyBooks.Widgets {
+ namespace Books.Widgets {
     public class BooksListView : Gtk.TreeView {
 
         public BooksListView (Gtk.ListStore books)
         {
             set_model (books);
             set_headers_visible (true);
-            // set_fixed_height_mode (true);
+            set_headers_clickable (true);
             // set_grid_lines(Gtk.TreeViewGridLines.NONE);
 
             configure_columns ();

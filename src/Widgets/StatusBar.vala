@@ -13,7 +13,7 @@
  * Authored by: Diego Toral <diegotoral@gmail.com>
  */
 
- namespace MyBooks.Widgets {
+ namespace Books.Widgets {
     public class StatusBar : Granite.Widgets.StatusBar {
         public Gtk.Label total_books_label { get; private set; default = new Gtk.Label ("Library empty"); }
 
@@ -21,6 +21,7 @@
         {
             total_books_label.set_text ((string) total_books);
 
+            insert_widget (new Gtk.Button.with_label("Teste"), true);
             insert_widget (total_books_label, true);
         }
     }
