@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/diegotoral/Books.png?label=ready)](https://waffle.io/diegotoral/Books)  
 Books
 =======
 -------
