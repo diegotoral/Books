@@ -1,7 +1,7 @@
 Books [![Stories in Ready](https://badge.waffle.io/diegotoral/Books.png?label=ready)](http://waffle.io/diegotoral/Books)
 =======
 -------
-An open source library manager for Linux. *Books* is built with Gtk+ and Vala.
+An open source books manager for Linux. *Books* is built with Gtk+ and Vala.
 
 ## Installation
 ### From source
