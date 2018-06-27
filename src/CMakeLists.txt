@@ -9,7 +9,7 @@ include(ValaPrecompile)
 
 # Declaring our dependancies.
 find_package(PkgConfig)
-pkg_check_modules(DEPS REQUIRED gobject-2.0 glib-2.0 gio-2.0 gtk+-3.0 gee-1.0 granite)
+pkg_check_modules(DEPS REQUIRED gobject-2.0 glib-2.0 gio-2.0 gtk+-3.0 gee-0.8 granite)
 
 set(CFLAGS
     ${DEPS_CFLAGS} ${DEPS_CFLAGS_OTHER}
@@ -31,7 +31,7 @@ vala_precompile(VALA_C
     Config.vala
 PACKAGES
     gtk+-3.0
-    gee-1.0
+    gee-0.8
     granite)
 
 # Define the executable name.
