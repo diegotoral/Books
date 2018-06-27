@@ -18,7 +18,7 @@
         private Gtk.Menu menu;
 
         private Granite.Widgets.AppMenu appmenu;
-        private Granite.Widgets.SearchBar search_field;
+        private Gtk.SearchBar search_field;
 
         public Toolbar (Gtk.Menu menu, Granite.Widgets.AppMenu appmenu, bool disabled = true)
         {
@@ -51,7 +51,7 @@
             var search_field_item  = new Gtk.ToolItem ();
 
             // SearchBar
-            search_field = new Granite.Widgets.SearchBar(_("Search books"));
+            search_field = new Gtk.SearchBar(/*_("Search books")*/);
             search_field_item.add (search_field);
 
             add_spacer ();
