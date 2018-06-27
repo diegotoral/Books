@@ -22,7 +22,7 @@
         private Widgets.SideBar sidebar;
         private Widgets.StatusBar statusbar;
         private Gtk.ApplicationWindow window;
-        private Granite.Widgets.ThinPaned paned;
+        private Gtk.Paned paned;
         private Granite.Widgets.Welcome welcome;
 
         construct {
@@ -84,7 +84,7 @@
             main_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
             // Paned
-            paned = new Granite.Widgets.ThinPaned ();
+            paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
             paned.set_position (200);
 
             // Sidebar
@@ -162,7 +162,7 @@
         static bool refresh_database = false;
         static bool debug = false;
 
-        static const OptionEntry[] entries = {
+        const OptionEntry[] entries = {
             { "version", 0, 0, OptionArg.NONE, ref version, N_("Display version number"), null },
             { "debug", 0, 0, OptionArg.NONE, ref debug, N_("Show debug messages"), null },
             { "refresh-database", 'r', 0, OptionArg.NONE, ref refresh_database, N_("Recreates database files"), null },
